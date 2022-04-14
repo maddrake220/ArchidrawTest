@@ -1,5 +1,12 @@
 import React, { useCallback, useState } from "react";
+import styled from "styled-components";
 import { URL } from "../Service/constants";
+
+const TestStyled = styled.div`
+  button {
+    background-color: red;
+  }
+`;
 interface ItemType {
   _id: string;
 }
@@ -32,7 +39,7 @@ const TestMocking = () => {
   }
 
   return (
-    <div>
+    <TestStyled>
       <button onClick={handleClick}>fetch fake data</button>
       {data && (
         <ul>
@@ -41,7 +48,7 @@ const TestMocking = () => {
           ))}
         </ul>
       )}
-    </div>
+    </TestStyled>
   );
 };
 
