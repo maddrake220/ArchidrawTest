@@ -1,12 +1,10 @@
 import type { NextPage } from "next";
-import TestMocking from "../components/TestMocking";
+import Gallery from "../components/Gallery";
 
 const Home: NextPage = () => {
   return (
     <div>
-      <header>
-        <TestMocking />
-      </header>
+      <Gallery />
     </div>
   );
 };
