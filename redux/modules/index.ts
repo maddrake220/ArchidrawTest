@@ -22,6 +22,6 @@ const rootReducer = (
 export type RootState = ReturnType<typeof rootReducer>;
 export default rootReducer;
 
-interface IState {
+export interface IState {
   counter: ICounterState;
 }

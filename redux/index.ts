@@ -14,6 +14,8 @@ const configureStore = () => {
   return store;
 };
 
+export const store = configureStore();
+
 const wrapper = createWrapper(configureStore, {
   debug: process.env.NODE_ENV !== "production",
 });
