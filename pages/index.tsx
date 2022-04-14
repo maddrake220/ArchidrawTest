@@ -1,9 +1,12 @@
 import type { NextPage } from "next";
+import TestMocking from "../components/TestMocking";
 
 const Home: NextPage = () => {
   return (
     <div>
-      <header>welcome to next.js!</header>
+      <header>
+        <TestMocking />
+      </header>
     </div>
   );
 };
