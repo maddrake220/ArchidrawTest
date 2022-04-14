@@ -7,21 +7,9 @@ import { URL } from "../../service/constants";
 import { getGalleryThunk, Status } from "../../redux/modules/gallery";
 import { useDispatch } from "react-redux";
 import Image from "next/image";
+import ItemList from "../ItemList";
 
 export const selectGallery = (state: IState) => state.gallery;
-
-const TestStyled = styled.div`
-  button {
-    background-color: red;
-  }
-`;
-interface ItemType {
-  _id: string;
-}
-
-const Item: React.FC<ItemType> = ({ _id }) => {
-  return <Image src={_id} alt={_id} width={300} height={300} />;
-};
 
 const Gallery = () => {
   const { status, data } = useAppSelector(selectGallery);
@@ -36,13 +24,7 @@ const Gallery = () => {
   }
   return (
     <div>
-      {data && (
-        <ul>
-          {data.map((item) => (
-            <Item key={item._id} _id={item._id} />
-          ))}
-        </ul>
-      )}
+      <ItemList data={data} />
     </div>
   );
 };
