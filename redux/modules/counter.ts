@@ -22,7 +22,7 @@ export const initialState: ICounterState = {
 const reducer = (
   state: ICounterState = initialState,
   action: CounterAction
-) => {
+): ICounterState => {
   switch (action.type) {
     case INCREMENT:
       return { count: state.count + 1 };

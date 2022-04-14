@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import styled from "styled-components";
-import { URL } from "../Service/constants";
+import { URL } from "../service/constants";
 
 const TestStyled = styled.div`
   button {
