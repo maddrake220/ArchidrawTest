@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import useAppSelector, { selectGallery } from "../../hooks/useAppSelector";
 import GalleryMenu from "./GalleryMenu";
 
 const StyledGalleryInfo = styled.header`
@@ -28,10 +29,15 @@ const StyledGalleryInfo = styled.header`
   }
 `;
 const GalleryInfo = () => {
+  const { data, selectedItem } = useAppSelector(selectGallery);
   return (
     <StyledGalleryInfo>
       <div className="selected-image">
-        <div>1 개의 렌더 이미지 선택됨</div>
+        <div>
+          {selectedItem && selectedItem.length > 0
+            ? `${selectedItem.length}개의 렌더 이미지 선택됨`
+            : `${data?.length} 개의 렌더샷`}
+        </div>
         <div>모두 선택</div>
       </div>
       <h1>갤러리</h1>

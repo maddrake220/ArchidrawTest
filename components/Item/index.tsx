@@ -3,7 +3,7 @@ import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import ItemImage from "./ItemImage";
 import ItemOption from "./ItemOption";
-import ItemSelect from "./ItemSelect";
+import ItemCheckBox from "./ItemCheckBox";
 
 const StyledItem = styled.div`
   position: relative;
@@ -43,7 +43,7 @@ const Item: React.FC<ItemProps> = ({ _id }) => {
     <StyledItem>
       <div className="item-inner">
         <div className="item-wrapper">
-          <ItemSelect _id={_id} />
+          <ItemCheckBox _id={_id} />
           <ItemOption _id={_id} />
           <ItemImage _id={_id} />
         </div>
