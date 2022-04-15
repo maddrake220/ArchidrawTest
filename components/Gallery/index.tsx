@@ -1,31 +1,45 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { decrement, increment } from "../../redux/modules/counter";
-import useAppSelector from "../../hooks/useAppSelector";
+import React, { useEffect, useState } from "react";
+import useAppSelector, { selectGallery } from "../../hooks/useAppSelector";
 import { IState } from "../../redux/modules";
-import styled from "styled-components";
-import { URL } from "../../service/constants";
-import { getGalleryThunk, Status } from "../../redux/modules/gallery";
+import { getGalleryThunk } from "../../redux/modules/gallery";
 import { useDispatch } from "react-redux";
-import Image from "next/image";
 import ItemList from "../ItemList";
+import GalleryInfo from "../GalleryInfo";
+import styled from "styled-components";
 
-export const selectGallery = (state: IState) => state.gallery;
+const StyledGallery = styled.section`
+  .top-bar {
+    position: relative;
+    width: 100vw;
+    min-width: 1024px;
+    padding: 8px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.8);
+    border-bottom: 1px solid rgba(235, 235, 235, 0.8);
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+  }
+  .inner-container {
+    margin: auto 32px;
+  }
+`;
 
 const Gallery = () => {
-  const { status, data } = useAppSelector(selectGallery);
-
+  const { data } = useAppSelector(selectGallery);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getGalleryThunk());
   }, [dispatch]);
 
-  if (status === Status.failed) {
-    return;
-  }
   return (
-    <div>
-      <ItemList data={data} />
-    </div>
+    <StyledGallery>
+      <div className="top-bar"></div>
+      <div className="inner-container">
+        <GalleryInfo />
+        <ItemList data={data} />
+      </div>
+    </StyledGallery>
   );
 };
 
