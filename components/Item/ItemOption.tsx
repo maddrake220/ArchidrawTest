@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import { ItemProps } from ".";
+import OptionDropdown from "../common/OptionDropdown";
 
 const StyledItemOption = styled.div`
   position: absolute;
@@ -10,8 +11,20 @@ const StyledItemOption = styled.div`
   color: white;
   opacity: 0;
 `;
-const ItemSelect: React.FC<ItemProps> = ({ _id }) => {
-  return <StyledItemOption className="item-menu">...</StyledItemOption>;
+interface ItemOptionProps extends ItemProps {
+  onClick: (_id: string) => void;
+}
+const ItemSelect: React.FC<ItemOptionProps> = ({ _id, onClick }) => {
+  return (
+    <StyledItemOption
+      className="item-menu"
+      onClick={() => {
+        onClick(_id);
+      }}
+    >
+      ...
+    </StyledItemOption>
+  );
 };
 
 export default ItemSelect;

@@ -4,6 +4,7 @@ import styled from "styled-components";
 import ItemImage from "./ItemImage";
 import ItemOption from "./ItemOption";
 import ItemCheckBox from "./ItemCheckBox";
+import OptionDropdown from "../common/OptionDropdown";
 
 const StyledItem = styled.div`
   position: relative;
@@ -38,13 +39,18 @@ export interface ItemProps {
   _id: string;
 }
 
-const Item: React.FC<ItemProps> = ({ _id }) => {
+interface IItemProps extends ItemProps {
+  toggleId: string;
+  onToggleOption: (_id: string) => void;
+}
+const Item: React.FC<IItemProps> = ({ _id, toggleId, onToggleOption }) => {
   return (
     <StyledItem>
       <div className="item-inner">
         <div className="item-wrapper">
           <ItemCheckBox _id={_id} />
-          <ItemOption _id={_id} />
+          <ItemOption _id={_id} onClick={onToggleOption} />
+          <OptionDropdown _id={_id} toggleId={toggleId} />
           <ItemImage _id={_id} />
         </div>
       </div>
