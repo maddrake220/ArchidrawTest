@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactChild } from "react";
 import styled from "styled-components";
 
 const StyledCloseButton = styled.button`
@@ -10,7 +10,7 @@ const StyledCloseButton = styled.button`
   justify-content: center;
   -webkit-box-align: center;
   align-items: center;
-  padding: 0px 10px;
+  padding: 0px 20px;
   border: none;
   border-radius: 4px;
   appearance: none;
@@ -26,11 +26,11 @@ const StyledCloseButton = styled.button`
 `;
 
 interface ButtonProps {
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
-  text: string;
+  children: ReactChild;
+  onClick: () => void;
 }
-const CloseButton: React.FC<ButtonProps> = ({ onClick, text }) => {
-  return <StyledCloseButton onClick={onClick}>{text}</StyledCloseButton>;
+const CloseButton: React.FC<ButtonProps> = ({ children, onClick }) => {
+  return <StyledCloseButton onClick={onClick}>{children}</StyledCloseButton>;
 };
 
 export default CloseButton;

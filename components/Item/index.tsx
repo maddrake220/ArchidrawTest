@@ -41,8 +41,14 @@ export interface ItemProps {
 interface IItemProps extends ItemProps {
   toggleId: string;
   onToggleOption: (_id: string) => void;
+  toggleModal: (id: string) => void;
 }
-const Item: React.FC<IItemProps> = ({ _id, toggleId, onToggleOption }) => {
+const Item: React.FC<IItemProps> = ({
+  _id,
+  toggleId,
+  onToggleOption,
+  toggleModal,
+}) => {
   return (
     <StyledItem>
       <div className="item-inner">
@@ -50,7 +56,7 @@ const Item: React.FC<IItemProps> = ({ _id, toggleId, onToggleOption }) => {
           <ItemCheckBox _id={_id} />
           <ItemOption _id={_id} toggleId={toggleId} onClick={onToggleOption} />
           <OptionDropdown _id={_id} toggleId={toggleId} />
-          <ItemImage _id={_id} />
+          <ItemImage _id={_id} onClick={toggleModal} />
         </div>
       </div>
     </StyledItem>

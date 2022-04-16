@@ -2,15 +2,24 @@ import Image from "next/image";
 import React from "react";
 import { ItemProps } from ".";
 
-const ItemImage: React.FC<ItemProps> = ({ _id }) => {
+interface ItemImageProps extends ItemProps {
+  onClick: (id: string) => void;
+}
+const ItemImage: React.FC<ItemImageProps> = ({ _id, onClick }) => {
   return (
-    <Image
-      className="item-image"
-      layout="fill"
-      src={_id}
-      alt={_id}
-      objectFit="cover"
-    />
+    <div
+      onClick={() => {
+        onClick(_id);
+      }}
+    >
+      <Image
+        className="item-image"
+        layout="fill"
+        src={_id}
+        alt={_id}
+        objectFit="cover"
+      />
+    </div>
   );
 };
 

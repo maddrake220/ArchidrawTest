@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import useAppSelector, { selectGallery } from "../../hooks/useAppSelector";
 import { getGalleryThunk } from "../../redux/modules/gallery";
 import { useDispatch } from "react-redux";
 import ItemList from "../ItemList";
 import GalleryInfo from "../GalleryInfo";
 import styled from "styled-components";
+import GalleryModal from "../GalleryModal";
 
 const StyledGallery = styled.section`
   .top-bar {
@@ -26,18 +27,35 @@ const StyledGallery = styled.section`
 
 const Gallery = () => {
   const { data } = useAppSelector(selectGallery);
+  const [isToggleModal, setIsToggleModal] = useState(false);
+  const [modalId, setModalId] = useState("");
+
+  const toggleModal = useCallback((_id: string) => {
+    setIsToggleModal((toggle) => !toggle);
+    setModalId(_id);
+  }, []);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getGalleryThunk());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (isToggleModal) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "visible";
+  }, [isToggleModal]);
 
   return (
     <StyledGallery>
       <div className="top-bar"></div>
       <div className="inner-container">
         <GalleryInfo />
-        <ItemList data={data} />
+        <ItemList data={data} toggleModal={toggleModal} />
       </div>
+      <GalleryModal
+        modalId={modalId}
+        isToggleModal={isToggleModal}
+        setIsToggleModal={setIsToggleModal}
+      />
     </StyledGallery>
   );
 };

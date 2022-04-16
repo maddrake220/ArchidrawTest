@@ -10,8 +10,9 @@ const StyledItemList = styled.div`
 `;
 interface ItemListProps {
   data: ItemType[] | null;
+  toggleModal: (id: string) => void;
 }
-const ItemList: React.FC<ItemListProps> = ({ data }) => {
+const ItemList: React.FC<ItemListProps> = ({ data, toggleModal }) => {
   const [toggleId, setToggleId] = useState("");
 
   const onToggleOption = useCallback((_id: string) => {
@@ -25,6 +26,7 @@ const ItemList: React.FC<ItemListProps> = ({ data }) => {
           _id={item._id}
           toggleId={toggleId}
           onToggleOption={onToggleOption}
+          toggleModal={toggleModal}
         />
       ))}
     </StyledItemList>
