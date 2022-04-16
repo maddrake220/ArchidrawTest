@@ -1,7 +1,6 @@
-import Link from "next/link";
 import React, { useCallback } from "react";
 import styled from "styled-components";
-import downloadAFile from "../../service/downloadAFile";
+import downloadFile from "../../service/downloadFile";
 
 interface StyledDropdownProps {
   _id: string;
@@ -44,7 +43,7 @@ interface OptionDropdownProps {
 }
 const OptionDropdown: React.FC<OptionDropdownProps> = ({ _id, toggleId }) => {
   const onClickDownload = useCallback(() => {
-    downloadAFile(_id);
+    downloadFile(_id);
   }, [_id]);
 
   const onClickDelete = useCallback(() => {}, []);

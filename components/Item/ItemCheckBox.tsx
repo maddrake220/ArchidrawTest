@@ -1,7 +1,8 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { ItemProps } from ".";
+import useAppSelector, { selectGallery } from "../../hooks/useAppSelector";
 import {
   selectGalleryItem,
   unSelectGalleryItem,
@@ -20,8 +21,14 @@ const StyledItemCheckBox = styled.div<StyledProps>`
 `;
 
 const ItemCheckBox: React.FC<ItemProps> = ({ _id }) => {
+  const { selectedItem } = useAppSelector(selectGallery);
   const [checked, setChecked] = useState(false);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (selectedItem !== null) setChecked(selectedItem.includes(_id));
+  }, [selectedItem, _id]);
+
   const onToggleHandler = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       event.stopPropagation();

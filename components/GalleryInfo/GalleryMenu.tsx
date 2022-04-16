@@ -1,7 +1,9 @@
 import React, { useCallback } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import useAppSelector, { selectGallery } from "../../hooks/useAppSelector";
-import downloadAFile from "../../service/downloadAFile";
+import { deleteAllSelectGalleryItem } from "../../redux/modules/gallery";
+import downloadFile from "../../service/downloadFile";
 import CustomButton from "./CustomButton";
 
 const StyledGalleryMenu = styled.div`
@@ -15,14 +17,17 @@ const StyledGalleryMenu = styled.div`
 `;
 const GalleryMenu = () => {
   const { selectedItem } = useAppSelector(selectGallery);
+  const dispatch = useDispatch();
 
   const onClickDownloadAll = useCallback(() => {
-    downloadAFile(selectedItem);
+    downloadFile(selectedItem);
   }, [selectedItem]);
 
   const onClickDeleteAll = useCallback(() => {}, []);
 
-  const onClickDeleteAllSelect = useCallback(() => {}, []);
+  const onClickDeleteAllSelect = useCallback(() => {
+    dispatch(deleteAllSelectGalleryItem());
+  }, [dispatch]);
   return (
     <StyledGalleryMenu>
       {selectedItem && selectedItem.length > 0 && (

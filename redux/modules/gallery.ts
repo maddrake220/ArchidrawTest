@@ -7,6 +7,8 @@ export const GET_GALLERY_SUCCESS = "gallery/GET_GALLERY_SUCCESS";
 export const GET_GALLERY_FAIL = "gallery/GET_GALLERY_FAIL";
 export const SELECT_GALLERY_ITEM = "gallery/SELECT_GALLERY_ITEM";
 export const UNSELECT_GALLERY_ITEM = "gallery/UNSELECT_GALLERY_ITEM";
+export const DELETE_ALL_SELECT_GALLERY_ITEM =
+  "gallery/DELETE_ALL_SELECT_GALLERY_ITEM";
 
 export type ItemType = {
   _id: string;
@@ -44,6 +46,10 @@ export const selectGalleryItem = (_id: string) => ({
 export const unSelectGalleryItem = (_id: string) => ({
   type: UNSELECT_GALLERY_ITEM,
   _id,
+});
+
+export const deleteAllSelectGalleryItem = () => ({
+  type: DELETE_ALL_SELECT_GALLERY_ITEM,
 });
 
 export const initialState: IGalleryState = {
@@ -94,6 +100,9 @@ const reducer = (
         return { ...state, selectedItem };
       }
       return { ...state, selectedItem: [action._id] };
+    }
+    case DELETE_ALL_SELECT_GALLERY_ITEM: {
+      return { ...state, selectedItem: [] };
     }
     default:
       return state;
