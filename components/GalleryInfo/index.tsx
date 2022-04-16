@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import useAppSelector, { selectGallery } from "../../hooks/useAppSelector";
+import {
+  selectAllGalleryItem,
+  unselectAllGalleryItem,
+} from "../../redux/modules/gallery";
 import GalleryMenu from "./GalleryMenu";
 
 const StyledGalleryInfo = styled.header`
@@ -30,6 +35,23 @@ const StyledGalleryInfo = styled.header`
 `;
 const GalleryInfo = () => {
   const { data, selectedItem } = useAppSelector(selectGallery);
+  const dispatch = useDispatch();
+
+  const [toggle, setToggle] = useState(false);
+  const onToggleHandler = useCallback(() => {
+    if (toggle) {
+      dispatch(unselectAllGalleryItem());
+    } else {
+      dispatch(selectAllGalleryItem());
+    }
+    setToggle((toggle) => !toggle);
+  }, [dispatch, toggle]);
+
+  useEffect(() => {
+    if (data?.length === 0) {
+      setToggle(false);
+    }
+  }, [data]);
   return (
     <StyledGalleryInfo>
       <div className="selected-image">
@@ -38,7 +60,18 @@ const GalleryInfo = () => {
             ? `${selectedItem.length}개의 렌더 이미지 선택됨`
             : `${data?.length} 개의 렌더샷`}
         </div>
-        <div>모두 선택</div>
+        {data && data.length > 0 && (
+          <div>
+            <label>
+              <input
+                type="checkbox"
+                checked={toggle}
+                onChange={onToggleHandler}
+              />
+            </label>{" "}
+            모두 선택
+          </div>
+        )}
       </div>
       <h1>갤러리</h1>
       <GalleryMenu />
