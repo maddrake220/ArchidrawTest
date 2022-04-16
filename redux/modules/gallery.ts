@@ -14,6 +14,9 @@ export const DELETE_ALL_SELECT_GALLERY_ITEM =
 
 export const SELECT_ALL_GALLERY_ITEM = "gallery/SELECT_ALL_GALLERY_ITEM";
 export const UNSELECT_ALL_GALLERY_ITEM = "gallery/UNSELECT_ALL_GALLERY_ITEM";
+export const SET_CURRENT_MODAL_ID = "gallery/SET_CURRENT_MODAL_ID";
+export const GALLERY_PREV = "gallery/GALLERY_PREV";
+export const GALLERY_NEXT = "gallery/GALLERY_NEXT";
 
 export type ItemType = {
   _id: string;
@@ -27,6 +30,8 @@ export enum Status {
 export interface IGalleryState {
   data: ItemType[] | null;
   selectedItem: string[] | null;
+  currentModalId: string;
+  currentIndex: number;
   status: Status;
 }
 
@@ -74,9 +79,25 @@ export const selectAllGalleryItem = () => ({
 export const unselectAllGalleryItem = () => ({
   type: UNSELECT_ALL_GALLERY_ITEM,
 });
+
+export const setCurrentModalId = (id: string) => ({
+  type: SET_CURRENT_MODAL_ID,
+  id,
+});
+
+export const galleryPrev = () => ({
+  type: GALLERY_PREV,
+});
+
+export const galleryNext = () => ({
+  type: GALLERY_NEXT,
+});
+
 export const initialState: IGalleryState = {
   data: [],
   selectedItem: [],
+  currentModalId: "",
+  currentIndex: 0,
   status: Status.idle,
 };
 
@@ -97,6 +118,9 @@ export function getGalleryThunk(): ThunkAction<
   };
 }
 
+const getCurrentIndex = (array: ItemType[], currentId: string) => {
+  return array.map((object) => object._id).indexOf(currentId);
+};
 const reducer = (
   state: IGalleryState = initialState,
   action: AnyAction
@@ -155,6 +179,41 @@ const reducer = (
     }
     case UNSELECT_ALL_GALLERY_ITEM: {
       return { ...state, selectedItem: [] };
+    }
+    case SET_CURRENT_MODAL_ID: {
+      if (state.data !== null) {
+        const index = getCurrentIndex(state.data, action.id);
+        return { ...state, currentModalId: action.id, currentIndex: index };
+      }
+    }
+
+    case GALLERY_PREV: {
+      if (state.data !== null) {
+        const index = state.currentIndex;
+        if (index === 0) {
+          return { ...state };
+        }
+        return {
+          ...state,
+          currentModalId: state.data[index - 1]._id,
+          currentIndex: index - 1,
+        };
+      }
+      return { ...state };
+    }
+    case GALLERY_NEXT: {
+      if (state.data !== null) {
+        const index = state.currentIndex;
+        if (index === state.data.length - 1) {
+          return { ...state };
+        }
+        return {
+          ...state,
+          currentModalId: state.data[index + 1]._id,
+          currentIndex: index + 1,
+        };
+      }
+      return { ...state };
     }
     default:
       return state;

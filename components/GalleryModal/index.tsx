@@ -1,66 +1,38 @@
-import Image from "next/image";
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import CloseButton from "../common/CloseButton";
+import { selectGallery } from "../../hooks/useAppSelector";
+import ModalArrow from "./ModalArrow";
+import ModalContent from "./ModalContent";
+import ModalTop from "./ModalTop";
 
 interface StyledProps {
   isToggleModal: boolean;
 }
 const StyledGalleryModal = styled.div<StyledProps>`
   display: ${(props) => (props.isToggleModal ? "block" : "none")};
-
-  .gallery-modal-top {
-    width: 100%;
-    height: 36px;
-    background-color: white;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-  }
-  .gallery-modal-inner {
-    width: 100%;
-    background-color: rgb(250, 250, 250);
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 36px;
-    bottom: 0;
-  }
+  width: 100%;
+  z-index: 9999;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
 `;
 interface GalleryModalProps {
-  modalId: string;
   isToggleModal: boolean;
-  setIsToggleModal: any;
+  setIsToggleModal: Dispatch<SetStateAction<boolean>>;
 }
 const GalleryModal: React.FC<GalleryModalProps> = ({
-  modalId,
   isToggleModal,
   setIsToggleModal,
 }) => {
-  console.log("idis", typeof modalId);
+  const { currentModalId } = useSelector(selectGallery);
   return (
     <StyledGalleryModal isToggleModal={isToggleModal}>
-      <div className="gallery-modal-top">
-        <CloseButton
-          onClick={() => {
-            setIsToggleModal(false);
-          }}
-        >
-          X
-        </CloseButton>
-      </div>
-      <div className="gallery-modal-inner">
-        {modalId && (
-          <Image
-            className="item-image"
-            layout="fill"
-            src={modalId}
-            alt={modalId}
-            objectFit="contain"
-          />
-        )}
-      </div>
+      <ModalTop setIsToggleModal={setIsToggleModal} />
+      <ModalContent modalId={currentModalId} />
+      <ModalArrow />
     </StyledGalleryModal>
   );
 };

@@ -1,6 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
 import useAppSelector, { selectGallery } from "../../hooks/useAppSelector";
-import { getGalleryThunk } from "../../redux/modules/gallery";
+import {
+  getGalleryThunk,
+  setCurrentModalId,
+} from "../../redux/modules/gallery";
 import { useDispatch } from "react-redux";
 import ItemList from "../ItemList";
 import GalleryInfo from "../GalleryInfo";
@@ -28,13 +31,15 @@ const StyledGallery = styled.section`
 const Gallery = () => {
   const { data } = useAppSelector(selectGallery);
   const [isToggleModal, setIsToggleModal] = useState(false);
-  const [modalId, setModalId] = useState("");
-
-  const toggleModal = useCallback((_id: string) => {
-    setIsToggleModal((toggle) => !toggle);
-    setModalId(_id);
-  }, []);
   const dispatch = useDispatch();
+
+  const toggleModal = useCallback(
+    (_id: string) => {
+      setIsToggleModal((toggle) => !toggle);
+      dispatch(setCurrentModalId(_id));
+    },
+    [dispatch]
+  );
   useEffect(() => {
     dispatch(getGalleryThunk());
   }, [dispatch]);
@@ -52,7 +57,6 @@ const Gallery = () => {
         <ItemList data={data} toggleModal={toggleModal} />
       </div>
       <GalleryModal
-        modalId={modalId}
         isToggleModal={isToggleModal}
         setIsToggleModal={setIsToggleModal}
       />
