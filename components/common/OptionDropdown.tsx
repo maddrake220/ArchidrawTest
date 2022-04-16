@@ -1,8 +1,10 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { deleteGalleryItem } from "../../redux/modules/gallery";
 import downloadFile from "../../service/downloadFile";
+import DeleteConfirm from "./DeleteConfirm";
+import ModalBack from "./ModalBack";
 
 interface StyledDropdownProps {
   _id: string;
@@ -44,6 +46,7 @@ interface OptionDropdownProps {
   toggleId: string;
 }
 const OptionDropdown: React.FC<OptionDropdownProps> = ({ _id, toggleId }) => {
+  const [toggleModal, setToggleModal] = useState(false);
   const dispatch = useDispatch();
 
   const onClickDownload = useCallback(() => {
@@ -51,6 +54,10 @@ const OptionDropdown: React.FC<OptionDropdownProps> = ({ _id, toggleId }) => {
   }, [_id]);
 
   const onClickDelete = useCallback(() => {
+    setToggleModal((toggle) => !toggle);
+  }, []);
+
+  const onConfirm = useCallback(() => {
     dispatch(deleteGalleryItem(_id));
   }, [dispatch, _id]);
   return (
@@ -61,6 +68,9 @@ const OptionDropdown: React.FC<OptionDropdownProps> = ({ _id, toggleId }) => {
       <div className="option-dropdown-item" onClick={onClickDelete}>
         삭제
       </div>
+      <ModalBack toggleModal={toggleModal}>
+        <DeleteConfirm onConfirm={onConfirm} onReturn={onClickDelete} />
+      </ModalBack>
     </StyledDropdown>
   );
 };

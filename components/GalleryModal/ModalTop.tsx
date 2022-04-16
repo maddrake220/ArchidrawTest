@@ -26,7 +26,7 @@ const ModalTop: React.FC<ModalTopProps> = ({ setIsToggleModal }) => {
       >
         X
       </CloseButton>
-      <ModalTopMenu />
+      <ModalTopMenu setIsToggleModal={setIsToggleModal} />
     </StyledModalTop>
   );
 };

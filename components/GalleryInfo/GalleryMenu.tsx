@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import useAppSelector, { selectGallery } from "../../hooks/useAppSelector";
@@ -7,6 +7,8 @@ import {
   deleteGalleryItems,
 } from "../../redux/modules/gallery";
 import downloadFile from "../../service/downloadFile";
+import DeleteConfirm from "../common/DeleteConfirm";
+import ModalBack from "../common/ModalBack";
 import CustomButton from "./CustomButton";
 
 const StyledGalleryMenu = styled.div`
@@ -20,6 +22,7 @@ const StyledGalleryMenu = styled.div`
 `;
 const GalleryMenu = () => {
   const { selectedItem } = useAppSelector(selectGallery);
+  const [toggleModal, setToggleModal] = useState(false);
   const dispatch = useDispatch();
 
   const onClickDownloadAll = useCallback(() => {
@@ -27,7 +30,12 @@ const GalleryMenu = () => {
   }, [selectedItem]);
 
   const onClickDelete = useCallback(() => {
+    setToggleModal((toggle) => !toggle);
+  }, []);
+
+  const onConfirm = useCallback(() => {
     if (selectedItem !== null) dispatch(deleteGalleryItems(selectedItem));
+    setToggleModal((toggle) => !toggle);
   }, [dispatch, selectedItem]);
 
   const onClickDeleteAllSelect = useCallback(() => {
@@ -64,6 +72,9 @@ const GalleryMenu = () => {
           <CustomButton onClick={onClickDeleteAllSelect}>
             선택 취소
           </CustomButton>
+          <ModalBack toggleModal={toggleModal}>
+            <DeleteConfirm onConfirm={onConfirm} onReturn={onClickDelete} />
+          </ModalBack>
         </>
       )}
     </StyledGalleryMenu>
