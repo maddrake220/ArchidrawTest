@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import useAppSelector, { selectGallery } from "../../hooks/useAppSelector";
-import { IState } from "../../redux/modules";
 import { getGalleryThunk } from "../../redux/modules/gallery";
 import { useDispatch } from "react-redux";
 import ItemList from "../ItemList";

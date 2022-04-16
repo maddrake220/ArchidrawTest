@@ -1,10 +1,10 @@
 import type { NextPage } from "next";
-import GalleryContainer from "../containers/GalleryContainer";
+import Gallery from "../components/Gallery";
 
 const Home: NextPage = () => {
   return (
     <div>
-      <GalleryContainer />
+      <Gallery />
     </div>
   );
 };

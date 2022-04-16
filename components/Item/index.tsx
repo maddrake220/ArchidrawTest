@@ -1,4 +1,3 @@
-import Image from "next/image";
 import React, { useCallback, useState } from "react";
 import styled from "styled-components";
 import ItemImage from "./ItemImage";

@@ -1,7 +1,6 @@
-import React, { useCallback, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { ItemProps } from ".";
-import OptionDropdown from "../common/OptionDropdown";
 
 const StyledItemOption = styled.div`
   position: absolute;
