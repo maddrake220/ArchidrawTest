@@ -1,12 +1,14 @@
 import { AnyAction } from "redux";
 import { ThunkAction } from "redux-thunk";
-import { fetchRenderings } from "../../service/api";
+import { getRenderings } from "../../service/api";
 
 export const GET_GALLERY_START = "gallery/GET_GALLERY_START";
 export const GET_GALLERY_SUCCESS = "gallery/GET_GALLERY_SUCCESS";
 export const GET_GALLERY_FAIL = "gallery/GET_GALLERY_FAIL";
 export const SELECT_GALLERY_ITEM = "gallery/SELECT_GALLERY_ITEM";
 export const UNSELECT_GALLERY_ITEM = "gallery/UNSELECT_GALLERY_ITEM";
+export const DELETE_GALLERY_ITEMS = "gallery/DELETE_GALLERY_ITEMS";
+export const DELETE_GALLERY_ITEM = "gallery/DELETE_GALLERY_ITEM";
 export const DELETE_ALL_SELECT_GALLERY_ITEM =
   "gallery/DELETE_ALL_SELECT_GALLERY_ITEM";
 
@@ -52,6 +54,16 @@ export const deleteAllSelectGalleryItem = () => ({
   type: DELETE_ALL_SELECT_GALLERY_ITEM,
 });
 
+export const deleteGalleryItems = (data: string[]) => ({
+  type: DELETE_GALLERY_ITEMS,
+  data,
+});
+
+export const deleteGalleryItem = (_id: string) => ({
+  type: DELETE_GALLERY_ITEM,
+  _id,
+});
+
 export const initialState: IGalleryState = {
   data: [],
   selectedItem: [],
@@ -67,7 +79,7 @@ export function getGalleryThunk(): ThunkAction<
   return async (dispatch) => {
     try {
       dispatch(getGalleryStart());
-      const res = await fetchRenderings();
+      const res = await getRenderings();
       dispatch(getGallerySuccess(res));
     } catch (error: any) {
       dispatch(getGalleryFail());
@@ -103,6 +115,27 @@ const reducer = (
     }
     case DELETE_ALL_SELECT_GALLERY_ITEM: {
       return { ...state, selectedItem: [] };
+    }
+    case DELETE_GALLERY_ITEM: {
+      if (state.data !== null) {
+        const filtered = state.data?.filter((item) => item._id !== action._id);
+        if (state.selectedItem !== null) {
+          const filteredSelected = state.selectedItem?.filter(
+            (item) => item !== action._id
+          );
+          return { ...state, data: filtered, selectedItem: filteredSelected };
+        }
+      }
+      return { ...state };
+    }
+    case DELETE_GALLERY_ITEMS: {
+      if (state.data !== null) {
+        const filtered = state.data?.filter(
+          (item) => !action.data.includes(item._id)
+        );
+        return { ...state, data: filtered, selectedItem: [] };
+      }
+      return { ...state };
     }
     default:
       return state;

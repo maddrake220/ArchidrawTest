@@ -12,8 +12,13 @@ import { URL } from "./constants";
 //   return result;
 // }
 
-export async function fetchRenderings() {
-  return await fetch(URL)
+export async function getRenderings() {
+  return await fetch(URL, {
+    method: "get",
+    headers: {
+      "Content-type": "application/json",
+    },
+  })
     .then((response) => {
       return response.json();
     })

@@ -1,5 +1,7 @@
 import React, { useCallback } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { deleteGalleryItem } from "../../redux/modules/gallery";
 import downloadFile from "../../service/downloadFile";
 
 interface StyledDropdownProps {
@@ -42,11 +44,15 @@ interface OptionDropdownProps {
   toggleId: string;
 }
 const OptionDropdown: React.FC<OptionDropdownProps> = ({ _id, toggleId }) => {
+  const dispatch = useDispatch();
+
   const onClickDownload = useCallback(() => {
     downloadFile(_id);
   }, [_id]);
 
-  const onClickDelete = useCallback(() => {}, []);
+  const onClickDelete = useCallback(() => {
+    dispatch(deleteGalleryItem(_id));
+  }, [dispatch, _id]);
   return (
     <StyledDropdown _id={_id} toggleId={toggleId}>
       <div className="option-dropdown-item" onClick={onClickDownload}>
