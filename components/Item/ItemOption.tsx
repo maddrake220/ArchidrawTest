@@ -12,14 +12,16 @@ const StyledItemOption = styled.div`
   opacity: 0;
 `;
 interface ItemOptionProps extends ItemProps {
+  toggleId: string;
   onClick: (_id: string) => void;
 }
-const ItemSelect: React.FC<ItemOptionProps> = ({ _id, onClick }) => {
+const ItemOption: React.FC<ItemOptionProps> = ({ _id, toggleId, onClick }) => {
   return (
     <StyledItemOption
       className="item-menu"
       onClick={() => {
-        onClick(_id);
+        if (toggleId === _id) onClick("");
+        else onClick(_id);
       }}
     >
       ...
@@ -27,4 +29,4 @@ const ItemSelect: React.FC<ItemOptionProps> = ({ _id, onClick }) => {
   );
 };
 
-export default ItemSelect;
+export default ItemOption;

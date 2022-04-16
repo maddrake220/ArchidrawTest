@@ -10,7 +10,7 @@ interface StyledDropdownProps {
 const StyledDropdown = styled.div<StyledDropdownProps>`
   display: ${(props) => (props._id === props.toggleId ? "block" : "none")};
   position: absolute;
-  left: 90px;
+  right: 30px;
   top: 20px;
   z-index: 999;
   width: 80px;

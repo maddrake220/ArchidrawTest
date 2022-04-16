@@ -49,7 +49,7 @@ const Item: React.FC<IItemProps> = ({ _id, toggleId, onToggleOption }) => {
       <div className="item-inner">
         <div className="item-wrapper">
           <ItemCheckBox _id={_id} />
-          <ItemOption _id={_id} onClick={onToggleOption} />
+          <ItemOption _id={_id} toggleId={toggleId} onClick={onToggleOption} />
           <OptionDropdown _id={_id} toggleId={toggleId} />
           <ItemImage _id={_id} />
         </div>
