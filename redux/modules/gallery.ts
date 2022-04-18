@@ -1,6 +1,6 @@
 import { AnyAction } from "redux";
 import { ThunkAction } from "redux-thunk";
-import { getRenderings } from "../../service/api";
+import { getRenderings } from "../../utils/api";
 
 export const GET_GALLERY_START = "gallery/GET_GALLERY_START";
 export const GET_GALLERY_SUCCESS = "gallery/GET_GALLERY_SUCCESS";

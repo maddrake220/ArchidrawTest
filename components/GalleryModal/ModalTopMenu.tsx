@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { selectGallery } from "../../hooks/useAppSelector";
 import { deleteGalleryItem } from "../../redux/modules/gallery";
-import downloadAFile from "../../service/downloadFile";
+import downloadAFile from "../../utils/downloadFile";
 import DeleteConfirm from "../common/DeleteConfirm";
 import ModalBack from "../common/ModalBack";
 import CustomButton from "../GalleryInfo/CustomButton";

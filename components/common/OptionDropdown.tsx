@@ -2,7 +2,7 @@ import React, { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { deleteGalleryItem } from "../../redux/modules/gallery";
-import downloadFile from "../../service/downloadFile";
+import downloadFile from "../../utils/downloadFile";
 import DeleteConfirm from "./DeleteConfirm";
 import ModalBack from "./ModalBack";
 

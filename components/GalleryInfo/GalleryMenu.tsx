@@ -6,7 +6,7 @@ import {
   deleteAllSelectGalleryItem,
   deleteGalleryItems,
 } from "../../redux/modules/gallery";
-import downloadFile from "../../service/downloadFile";
+import downloadFile from "../../utils/downloadFile";
 import DeleteConfirm from "../common/DeleteConfirm";
 import ModalBack from "../common/ModalBack";
 import CustomButton from "./CustomButton";

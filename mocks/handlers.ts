@@ -1,5 +1,5 @@
 import { rest } from "msw";
-import { URL } from "../service/constants";
+import { URL } from "../utils/constants";
 import mockData from "./mockData.json";
 
 export const handlers = [
