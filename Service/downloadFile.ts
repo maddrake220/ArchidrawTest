@@ -13,11 +13,10 @@ async function asyncurlToPromise(url: string) {
       "Content-Type": "application",
     },
   });
-  console.log(response);
   return await response.blob();
 }
 
-const downloadAFile = (params: string | string[] | null) => {
+const downloadFile = (params: string | string[] | null) => {
   if (null) return;
   if (typeof params === "string") {
     fetch(params, {
@@ -51,10 +50,9 @@ const downloadAFile = (params: string | string[] | null) => {
 
     zip.generateAsync({ type: "blob" }).then(function callback(blob) {
       // see FileSaver.js
-      console.log(blob);
       saveAs(blob, "download.zip");
     });
   }
 };
 
-export default downloadAFile;
+export default downloadFile;
