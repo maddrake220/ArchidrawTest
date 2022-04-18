@@ -43,7 +43,7 @@ const downloadFile = (params: string | string[] | null) => {
         link?.parentNode?.removeChild(link);
       });
   } else if (Array.isArray(params)) {
-    var zip = new JSZip();
+    const zip = new JSZip();
     for (let p of params) {
       zip.file(getFileName(p), asyncurlToPromise(p), { binary: true });
     }
