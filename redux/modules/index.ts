@@ -1,10 +1,8 @@
 import { AnyAction, CombinedState, combineReducers } from "redux";
 import { HYDRATE } from "next-redux-wrapper";
-import counter, { ICounterState } from "./counter";
 import gallery, { IGalleryState } from "./gallery";
 
 export interface IState {
-  counter: ICounterState;
   gallery: IGalleryState;
 }
 
@@ -18,7 +16,6 @@ const rootReducer = (
       return { ...action.payload };
     default: {
       const combineReducer = combineReducers({
-        counter,
         gallery,
       });
       return combineReducer(state, action);
