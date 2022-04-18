@@ -1,5 +1,8 @@
 # 아키드로우 사전과제
 
+- url
+  https://archidraw-test-nu.vercel.app/
+
 ## 기술스택
 
 - typescript
