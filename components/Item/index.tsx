@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import ItemImage from "./ItemImage";
 import ItemOption from "./ItemOption";
